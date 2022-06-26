@@ -1,7 +1,7 @@
-import { isSsr } from "@/checkout-app/constants";
 import { app, AppBridge } from "@/checkout-app/frontend/misc/app";
-import { createApp } from "@saleor/app-bridge";
+import { useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
+import { handleRedirectEvent, handleRouteChange } from "./handlers";
 
 interface IAppContext {
   app?: AppBridge;
@@ -14,6 +14,7 @@ export const AppContext = createContext<IAppContext>({
 });
 
 const AppProvider: React.FC = (props) => {
+  const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(!!app?.getState()?.token);
 
   useEffect(() => {
@@ -26,6 +27,20 @@ const AppProvider: React.FC = (props) => {
 
       return () => {
         unsubscribe();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (app) {
+      const unsubscribe = app?.subscribe("redirect", ({ path }) => {
+        handleRedirectEvent(router, path);
+      });
+      router.events.on("routeChangeComplete", handleRouteChange);
+
+      return () => {
+        unsubscribe();
+        router.events.off("routeChangeComplete", handleRouteChange);
       };
     }
   }, []);
