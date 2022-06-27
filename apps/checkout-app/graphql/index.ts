@@ -1256,6 +1256,26 @@ export type AttributeCreateInput = {
   visibleInStorefront?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type AttributeCreated = Event & {
+  __typename?: 'AttributeCreated';
+  /**
+   * The attribute the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  attribute?: Maybe<Attribute>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
+};
+
 /**
  * Deletes an attribute.
  *
@@ -1267,6 +1287,26 @@ export type AttributeDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   attributeErrors: Array<AttributeError>;
   errors: Array<AttributeError>;
+};
+
+export type AttributeDeleted = Event & {
+  __typename?: 'AttributeDeleted';
+  /**
+   * The attribute the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  attribute?: Maybe<Attribute>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** An enumeration. */
@@ -1466,6 +1506,26 @@ export type AttributeUpdateInput = {
   valueRequired?: InputMaybe<Scalars['Boolean']>;
   /** Whether the attribute should be visible or not in storefront. */
   visibleInStorefront?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type AttributeUpdated = Event & {
+  __typename?: 'AttributeUpdated';
+  /**
+   * The attribute the event relates to.
+   *
+   * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  attribute?: Maybe<Attribute>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars['DateTime']>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<App>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars['String']>;
 };
 
 /** Represents a value of an attribute. */
@@ -20749,6 +20809,12 @@ export type WebhookEventTypeAsyncEnum =
   | 'APP_STATUS_CHANGED'
   /** An app updated. */
   | 'APP_UPDATED'
+  /** A new attribute is created. */
+  | 'ATTRIBUTE_CREATED'
+  /** An attribute is deleted. */
+  | 'ATTRIBUTE_DELETED'
+  /** An attribute is updated. */
+  | 'ATTRIBUTE_UPDATED'
   /** A new category created. */
   | 'CATEGORY_CREATED'
   /** A category is deleted. */
@@ -20905,6 +20971,12 @@ export type WebhookEventTypeEnum =
   | 'APP_STATUS_CHANGED'
   /** An app updated. */
   | 'APP_UPDATED'
+  /** A new attribute is created. */
+  | 'ATTRIBUTE_CREATED'
+  /** An attribute is deleted. */
+  | 'ATTRIBUTE_DELETED'
+  /** An attribute is updated. */
+  | 'ATTRIBUTE_UPDATED'
   /** A new category created. */
   | 'CATEGORY_CREATED'
   /** A category is deleted. */
@@ -21075,6 +21147,9 @@ export type WebhookSampleEventTypeEnum =
   | 'APP_INSTALLED'
   | 'APP_STATUS_CHANGED'
   | 'APP_UPDATED'
+  | 'ATTRIBUTE_CREATED'
+  | 'ATTRIBUTE_DELETED'
+  | 'ATTRIBUTE_UPDATED'
   | 'CATEGORY_CREATED'
   | 'CATEGORY_DELETED'
   | 'CATEGORY_UPDATED'
@@ -21360,6 +21435,13 @@ export type TransactionUpdateMutationVariables = Exact<{
 
 export type TransactionUpdateMutation = { __typename?: 'Mutation', transactionUpdate?: { __typename?: 'TransactionUpdate', transaction?: { __typename?: 'TransactionItem', id: string } | null, errors: Array<{ __typename?: 'TransactionUpdateError', code: TransactionUpdateErrorCode, message?: string | null }> } | null };
 
+export type TransactionActionRequestSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TransactionActionRequestSubscription = { __typename?: 'Subscription', event?: { __typename?: 'AddressCreated' } | { __typename?: 'AddressDeleted' } | { __typename?: 'AddressUpdated' } | { __typename?: 'AppDeleted' } | { __typename?: 'AppInstalled' } | { __typename?: 'AppStatusChanged' } | { __typename?: 'AppUpdated' } | { __typename?: 'AttributeCreated' } | { __typename?: 'AttributeDeleted' } | { __typename?: 'AttributeUpdated' } | { __typename?: 'CategoryCreated' } | { __typename?: 'CategoryDeleted' } | { __typename?: 'CategoryUpdated' } | { __typename?: 'ChannelCreated' } | { __typename?: 'ChannelDeleted' } | { __typename?: 'ChannelStatusChanged' } | { __typename?: 'ChannelUpdated' } | { __typename?: 'CheckoutCreated' } | { __typename?: 'CheckoutUpdated' } | { __typename?: 'CollectionCreated' } | { __typename?: 'CollectionDeleted' } | { __typename?: 'CollectionUpdated' } | { __typename?: 'CustomerCreated' } | { __typename?: 'CustomerUpdated' } | { __typename?: 'DraftOrderCreated' } | { __typename?: 'DraftOrderDeleted' } | { __typename?: 'DraftOrderUpdated' } | { __typename?: 'FulfillmentCanceled' } | { __typename?: 'FulfillmentCreated' } | { __typename?: 'GiftCardCreated' } | { __typename?: 'GiftCardDeleted' } | { __typename?: 'GiftCardStatusChanged' } | { __typename?: 'GiftCardUpdated' } | { __typename?: 'InvoiceDeleted' } | { __typename?: 'InvoiceRequested' } | { __typename?: 'InvoiceSent' } | { __typename?: 'MenuCreated' } | { __typename?: 'MenuDeleted' } | { __typename?: 'MenuItemCreated' } | { __typename?: 'MenuItemDeleted' } | { __typename?: 'MenuItemUpdated' } | { __typename?: 'MenuUpdated' } | { __typename?: 'OrderCancelled' } | { __typename?: 'OrderConfirmed' } | { __typename?: 'OrderCreated' } | { __typename?: 'OrderFulfilled' } | { __typename?: 'OrderFullyPaid' } | { __typename?: 'OrderUpdated' } | { __typename?: 'PageCreated' } | { __typename?: 'PageDeleted' } | { __typename?: 'PageTypeCreated' } | { __typename?: 'PageTypeDeleted' } | { __typename?: 'PageTypeUpdated' } | { __typename?: 'PageUpdated' } | { __typename?: 'ProductCreated' } | { __typename?: 'ProductDeleted' } | { __typename?: 'ProductUpdated' } | { __typename?: 'ProductVariantBackInStock' } | { __typename?: 'ProductVariantCreated' } | { __typename?: 'ProductVariantDeleted' } | { __typename?: 'ProductVariantOutOfStock' } | { __typename?: 'ProductVariantUpdated' } | { __typename?: 'SaleCreated' } | { __typename?: 'SaleDeleted' } | { __typename?: 'SaleUpdated' } | { __typename?: 'ShippingPriceCreated' } | { __typename?: 'ShippingPriceDeleted' } | { __typename?: 'ShippingPriceUpdated' } | { __typename?: 'ShippingZoneCreated' } | { __typename?: 'ShippingZoneDeleted' } | { __typename?: 'ShippingZoneUpdated' } | { __typename?: 'StaffCreated' } | { __typename?: 'StaffDeleted' } | { __typename?: 'StaffUpdated' } | { __typename?: 'TransactionActionRequest', transaction?: { __typename?: 'TransactionItem', reference: string, type: string, authorizedAmount: { __typename?: 'Money', currency: string } } | null, action: { __typename?: 'TransactionAction', actionType: TransactionActionEnum, amount?: any | null } } | { __typename?: 'TranslationCreated' } | { __typename?: 'TranslationUpdated' } | { __typename?: 'VoucherCreated' } | { __typename?: 'VoucherDeleted' } | { __typename?: 'VoucherUpdated' } | { __typename?: 'WarehouseCreated' } | { __typename?: 'WarehouseDeleted' } | { __typename?: 'WarehouseUpdated' } | null };
+
+export type TransactionActionPayloadFragment = { __typename?: 'TransactionActionRequest', transaction?: { __typename?: 'TransactionItem', reference: string, type: string, authorizedAmount: { __typename?: 'Money', currency: string } } | null, action: { __typename?: 'TransactionAction', actionType: TransactionActionEnum, amount?: any | null } };
+
 export const ChannelFragmentDoc = gql`
     fragment ChannelFragment on Channel {
   id
@@ -21510,6 +21592,21 @@ export const TransactionFragmentDoc = gql`
 }
     ${MoneyFragmentDoc}
 ${TransactionEventFragmentDoc}`;
+export const TransactionActionPayloadFragmentDoc = gql`
+    fragment TransactionActionPayload on TransactionActionRequest {
+  transaction {
+    reference
+    type
+    authorizedAmount {
+      currency
+    }
+  }
+  action {
+    actionType
+    amount
+  }
+}
+    `;
 export const AppDocument = gql`
     query App($id: ID) {
   app(id: $id) {
@@ -21747,4 +21844,15 @@ export const TransactionUpdateDocument = gql`
 
 export function useTransactionUpdateMutation() {
   return Urql.useMutation<TransactionUpdateMutation, TransactionUpdateMutationVariables>(TransactionUpdateDocument);
+};
+export const TransactionActionRequestSubscriptionDocument = gql`
+    subscription TransactionActionRequestSubscription {
+  event {
+    ...TransactionActionPayload
+  }
+}
+    ${TransactionActionPayloadFragmentDoc}`;
+
+export function useTransactionActionRequestSubscription<TData = TransactionActionRequestSubscription>(options: Omit<Urql.UseSubscriptionArgs<TransactionActionRequestSubscriptionVariables>, 'query'> = {}, handler?: Urql.SubscriptionHandler<TransactionActionRequestSubscription, TData>) {
+  return Urql.useSubscription<TransactionActionRequestSubscription, TData, TransactionActionRequestSubscriptionVariables>({ query: TransactionActionRequestSubscriptionDocument, ...options }, handler);
 };
