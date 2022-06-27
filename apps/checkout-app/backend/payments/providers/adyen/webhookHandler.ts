@@ -18,6 +18,8 @@ import {
 
 const EventCodeEnum = Types.notification.NotificationRequestItem.EventCodeEnum;
 
+export const ADYEN_PAYMENT_PREFIX = "adyen";
+
 export const isNotificationDuplicate = async (
   transactions: TransactionFragment[],
   notificationItem: Types.notification.NotificationRequestItem
@@ -101,9 +103,9 @@ export const getUpdatedTransactionData = (
 
   const getNewAmount = ():
     | Pick<
-        TransactionUpdateInput,
-        "amountRefunded" | "amountAuthorized" | "amountCharged" | "amountVoided"
-      >
+      TransactionUpdateInput,
+      "amountRefunded" | "amountAuthorized" | "amountCharged" | "amountVoided"
+    >
     | undefined => {
     if (eventCode === EventCodeEnum.Refund) {
       if (!amount.currency || !amount.value) {
@@ -196,7 +198,7 @@ export const getNewTransactionData = (
       transactionEvent,
       transaction: {
         status: eventCode.toString(),
-        type: `adyen-${paymentMethod}`,
+        type: `${ADYEN_PAYMENT_PREFIX}-${paymentMethod}`,
         amountAuthorized: {
           amount: getSaleorAmountFromAdyen(amount.value!),
           currency: amount.currency!,
@@ -213,7 +215,7 @@ export const getNewTransactionData = (
       transactionEvent,
       transaction: {
         status: eventCode.toString(),
-        type: `adyen-${paymentMethod}`,
+        type: `${ADYEN_PAYMENT_PREFIX}-${paymentMethod}`,
         amountCharged: {
           amount: getSaleorAmountFromAdyen(amount.value!),
           currency: amount.currency!,
